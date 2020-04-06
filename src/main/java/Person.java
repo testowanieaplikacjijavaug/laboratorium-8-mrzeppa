@@ -6,8 +6,6 @@ public class Person {
     private String name;
     private List<String> friends;
 
-    public Person() { }
-
     public Person(String name){
         this.setName(name);
         setFriends(new ArrayList<String>());

@@ -97,34 +97,34 @@ class NoteTest {
 
     @Test
     public  void callingClearFunctionShouldClearMap(){
-        ArrayList<Note> allnotes = new ArrayList<Note>();
-        allnotes.add(Note.of("John", 5.0f));
+        ArrayList<Note> noteList = new ArrayList<Note>();
+        noteList.add(Note.of("John", 5.0f));
         service.clear();
         EasyMock.expectLastCall().andAnswer(() -> {
-            allnotes.clear();
+            noteList.clear();
             return null;
         }).times(1);
         replay(service);
 
         service.clear();
-        assertThat(allnotes.isEmpty()).isTrue();
+        assertThat(noteList.isEmpty()).isTrue();
         verify(service);
     }
 
     @Test
     public  void addTwoTimesSamePerson(){
-        Note input = Note.of("Lmal", 3.0f);
+        Note note = Note.of("Lmal", 3.0f);
         ArrayList<Note> mockList = new ArrayList<Note>();
 
-        storage.add(input);
+        storage.add(note);
         EasyMock.expectLastCall().andAnswer(() -> {
-            mockList.add(input);
+            mockList.add(note);
             return null;
         }).times(2);
         replay(storage);
 
-        storage.add(input);
-        storage.add(input);
+        storage.add(note);
+        storage.add(note);
 
         assertThat(mockList.get(0).getName()).isEqualTo("Lmal");
         verify(storage);
@@ -132,19 +132,28 @@ class NoteTest {
 
     @Test
     public void addingPersonTest() {
-        Note input = Note.of("Lmal", 3.0f);
+        Note note = Note.of("Lmal", 3.0f);
         ArrayList<Note> mockList = new ArrayList<Note>();
-        storage.add(input);
+        storage.add(note);
         EasyMock.expectLastCall().andAnswer(() -> {
-            mockList.add(input);
+            mockList.add(note);
             return null;
         }).times(1);
         replay(storage);
 
-        storage.add(input);
+        storage.add(note);
         assertThat(mockList.get(0).getName()).isEqualTo("Lmal");
 
         verify(storage);
+    }
+
+    @Test
+    public void getNoteTest() {
+        Note note = createMock(Note.class);
+        expect(note.getNote()).andReturn(3.f);
+        replay(note);
+
+        assertThat(note.getNote()).isEqualTo(3.f);
     }
 
 
