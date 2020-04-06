@@ -9,9 +9,6 @@ public class Note implements Serializable {
     public static Note of(final String name, final float note) {
         return new Note(name, note);
     }
-    public String getName() {
-        return name;
-    }
     public float getNote() {
         return note;
     }
